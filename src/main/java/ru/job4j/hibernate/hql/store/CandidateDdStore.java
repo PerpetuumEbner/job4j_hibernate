@@ -91,4 +91,18 @@ public class CandidateDdStore {
         session.getTransaction().commit();
         session.close();
     }
+
+    /**
+     * Поиск кандидата по имени.
+     *
+     * @param name Имя кандидата.
+     * @param sf   SessionFactory.
+     */
+    public void findByName(String name, SessionFactory sf) {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        session.createQuery("from Candidate where name = :name").setParameter("name", name).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+    }
 }

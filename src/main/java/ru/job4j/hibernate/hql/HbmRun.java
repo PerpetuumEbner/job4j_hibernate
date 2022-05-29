@@ -22,6 +22,7 @@ public class HbmRun {
             store.delete(1, sf);
             store.update(2, "Nikita", "9 year", 10500, sf);
             store.findById(1, sf);
+            store.findByName("Nikolay", sf);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
