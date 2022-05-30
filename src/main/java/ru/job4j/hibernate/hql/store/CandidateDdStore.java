@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.job4j.hibernate.hql.model.Candidate;
 
+import java.util.List;
+
 /**
  * В классе происходит обработка кандидатов в базе данных.
  *
@@ -14,7 +16,7 @@ public class CandidateDdStore {
     /**
      * Добавление кандидата в базу данных.
      *
-     * @param candidate Кандидат.
+     * @param candidate Новый кандидат.
      * @param sf        SessionFactory.
      */
     public void create(Candidate candidate, SessionFactory sf) {
@@ -37,8 +39,7 @@ public class CandidateDdStore {
     public void update(int id, String name, String experience, int salary, SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.createQuery(
-                        "update Candidate set name = :newName, experience = :newExperience, salary = :newSalary where id = :fId")
+        session.createQuery("update Candidate set name = :newName, experience = :newExperience, salary = :newSalary where id = :fId")
                 .setParameter("fId", id)
                 .setParameter("newName", name)
                 .setParameter("newExperience", experience)
@@ -57,10 +58,8 @@ public class CandidateDdStore {
     public void delete(int id, SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.createQuery(
-                        "delete from Candidate where id = :fId")
-                .setParameter("fId", id)
-                .executeUpdate();
+        session.createQuery("delete from Candidate where id = :fId")
+                .setParameter("fId", id).executeUpdate();
         session.getTransaction().commit();
         session.close();
     }
@@ -69,13 +68,15 @@ public class CandidateDdStore {
      * Поиск всех кандидатов в базе данных.
      *
      * @param sf SessionFactory.
+     * @return Список найденных кандидатов.
      */
-    public void findAll(SessionFactory sf) {
+    public List findAll(SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.createQuery("from Candidate").list();
+        var result = session.createQuery("from Candidate").list();
         session.getTransaction().commit();
         session.close();
+        return result;
     }
 
     /**
@@ -83,13 +84,16 @@ public class CandidateDdStore {
      *
      * @param id Id кандидата.
      * @param sf SessionFactory.
+     * @return Найденный кандидат.
      */
-    public void findById(int id, SessionFactory sf) {
+    public Candidate findById(int id, SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.createQuery("from Candidate where id = :fId").setParameter("fId", id).uniqueResult();
+        Candidate result = (Candidate) session.createQuery("from Candidate where id = :fId")
+                .setParameter("fId", id).uniqueResult();
         session.getTransaction().commit();
         session.close();
+        return result;
     }
 
     /**
@@ -97,12 +101,15 @@ public class CandidateDdStore {
      *
      * @param name Имя кандидата.
      * @param sf   SessionFactory.
+     * @return Список найденных имён.
      */
-    public void findByName(String name, SessionFactory sf) {
+    public List findByName(String name, SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        session.createQuery("from Candidate where name = :name").setParameter("name", name).uniqueResult();
+        var result = session.createQuery("from Candidate where name = :name")
+                .setParameter("name", name).list();
         session.getTransaction().commit();
         session.close();
+        return result;
     }
 }
