@@ -5,3 +5,15 @@ CREATE TABLE candidates
     experience TEXT,
     salary     INTEGER
 );
+
+CREATE TABLE brands
+(
+    id   SERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+);
+
+CREATE TABLE models
+(
+    id   SERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+)

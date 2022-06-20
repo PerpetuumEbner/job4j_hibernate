@@ -7,9 +7,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.hibernate.hql.model.Candidate;
 import ru.job4j.hibernate.hql.store.CandidateDdStore;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HbmRun {
     public static void main(String[] args) {
         CandidateDdStore store = new CandidateDdStore();
