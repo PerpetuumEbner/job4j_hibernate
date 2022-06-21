@@ -17,16 +17,24 @@ public class HbmRun {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            session.save(Model.of("RAPID"));
-            session.save(Model.of("OCTAVIA"));
-            session.save(Model.of("KODIAQ"));
-            session.save(Model.of("SUPERB"));
-            session.save(Model.of("KAROQ"));
+            Model one = Model.of("RAPID");
+            Model two = Model.of("OCTAVIA");
+            Model three = Model.of("KODIAQ");
+            Model fore = Model.of("SUPERB");
+            Model five = Model.of("KAROQ");
+
+            session.save(one);
+            session.save(two);
+            session.save(three);
+            session.save(fore);
+            session.save(five);
 
             Brand brand = Brand.of("Škoda");
-            for (int index = 1; index <= 5; index++) {
-                brand.addModel(session.load(Model.class, index));
-            }
+            brand.addModel(session.load(Model.class, 1));
+            brand.addModel(session.load(Model.class, 2));
+            brand.addModel(session.load(Model.class, 3));
+            brand.addModel(session.load(Model.class, 4));
+            brand.addModel(session.load(Model.class, 5));
 
             session.save(brand);
             session.getTransaction().commit();
