@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/car</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/library</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.pool_size">1</property>
@@ -17,8 +17,10 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
 
-        <mapping class="ru.job4j.hibernate.hql.model.Candidate" />
-        <mapping class="ru.job4j.hibernate.car.model.Model" />
-        <mapping class="ru.job4j.hibernate.car.model.Brand" />
+        <!--        <mapping class="ru.job4j.hibernate.hql.model.Candidate" />-->
+        <!--        <mapping class="ru.job4j.hibernate.car.model.Model" />-->
+        <!--        <mapping class="ru.job4j.hibernate.car.model.Brand" />-->
+        <mapping class="ru.job4j.hibernate.library.model.Author"/>
+        <mapping class="ru.job4j.hibernate.library.model.Book"/>
     </session-factory>
 </hibernate-configuration>
