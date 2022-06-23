@@ -17,12 +17,12 @@ public class HbmRun {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            Book one = Book.of("Война и мир");
-            Book two = Book.of("Мастер и Маргарита");
-            Book three = Book.of("Преступление и наказание");
-            Book four = Book.of("Анна Каренина");
-            Book five = Book.of("Идиот");
-            Book six = Book.of("Собачье сердце");
+            Book one = Book.of(1, "Война и мир");
+            Book two = Book.of(2, "Мастер и Маргарита");
+            Book three = Book.of(3, "Преступление и наказание");
+            Book four = Book.of(4, "Анна Каренина");
+            Book five = Book.of(5, "Идиот");
+            Book six = Book.of(6, "Собачье сердце");
 
             Author first = Author.of("Лев Толстой");
             first.getBooks().add(one);

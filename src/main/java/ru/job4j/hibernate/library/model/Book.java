@@ -12,8 +12,9 @@ public class Book {
 
     private String name;
 
-    public static Book of(String name) {
+    public static Book of(int id, String name) {
         Book book = new Book();
+        book.id = id;
         book.name = name;
         return book;
     }
@@ -36,14 +37,18 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Book book = (Book) o;
-        return id == book.id;
+        return id == book.id && name.equals(book.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
     }
 }
