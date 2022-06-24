@@ -1,5 +1,6 @@
 package ru.job4j.hibernate.library;
 
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -24,23 +25,22 @@ public class HbmRun {
             Book five = Book.of(5, "Идиот");
             Book six = Book.of(6, "Собачье сердце");
 
-            Author first = Author.of("Лев Толстой");
+            Author first = Author.of(1, "Лев Толстой");
             first.getBooks().add(one);
             first.getBooks().add(four);
-            Author second = Author.of("Федор Достоевский");
+            Author second = Author.of(2, "Федор Достоевский");
             second.getBooks().add(three);
             second.getBooks().add(five);
-            Author fourth = Author.of("Михаил Булгаков");
+            Author fourth = Author.of(3, "Михаил Булгаков");
             fourth.getBooks().add(two);
             fourth.getBooks().add(six);
 
-            session.persist(first);
-            session.persist(first);
-            session.persist(second);
-            session.persist(fourth);
+            session.merge(first);
+            session.merge(second);
+            session.merge(fourth);
 
-            Author author = session.get(Author.class, 1);
-            session.remove(author);
+//            Author author = session.get(Author.class, 1);
+//            session.remove(author);
 
             session.getTransaction().commit();
             session.close();
