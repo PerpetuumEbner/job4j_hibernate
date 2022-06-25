@@ -16,6 +16,7 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
+        <property name="hibernate.event.merge.entity_copy_observer">allow</property>
 
         <!--        <mapping class="ru.job4j.hibernate.hql.model.Candidate" />-->
         <!--        <mapping class="ru.job4j.hibernate.car.model.Model" />-->

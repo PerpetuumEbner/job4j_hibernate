@@ -1,6 +1,5 @@
 package ru.job4j.hibernate.library;
 
-import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -39,8 +38,8 @@ public class HbmRun {
             session.merge(second);
             session.merge(fourth);
 
-//            Author author = session.get(Author.class, 1);
-//            session.remove(author);
+            Author author = session.get(Author.class, 1);
+            session.remove(author);
 
             session.getTransaction().commit();
             session.close();
