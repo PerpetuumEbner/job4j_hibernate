@@ -7,6 +7,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.hibernate.car.model.Brand;
 import ru.job4j.hibernate.car.model.Model;
+import ru.job4j.hibernate.car.store.BrandModelDbStore;
+
+import java.util.List;
 
 public class HbmRun {
     public static void main(String[] args) {
@@ -16,33 +19,24 @@ public class HbmRun {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
             Session session = sf.openSession();
             session.beginTransaction();
-
-            Model one = Model.of("RAPID");
-            Model two = Model.of("OCTAVIA");
-            Model three = Model.of("KODIAQ");
-            Model fore = Model.of("SUPERB");
-            Model five = Model.of("KAROQ");
-
-            session.save(one);
-            session.save(two);
-            session.save(three);
-            session.save(fore);
-            session.save(five);
-
-            Brand brand = Brand.of("Škoda");
-            brand.addModel(session.load(Model.class, 1));
-            brand.addModel(session.load(Model.class, 2));
-            brand.addModel(session.load(Model.class, 3));
-            brand.addModel(session.load(Model.class, 4));
-            brand.addModel(session.load(Model.class, 5));
-
-            session.save(brand);
+            new BrandModelDbStore().create(session);
+            print(session);
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
+        }
+    }
+
+    public static void print(Session session) {
+        List<Brand> list;
+        list = session.createQuery("from Brand").list();
+        for (Brand brand : list) {
+            for (Model model : brand.getModels()) {
+                System.out.println(model);
+            }
         }
     }
 }

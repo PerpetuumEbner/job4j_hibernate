@@ -14,7 +14,7 @@ public class Brand {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "brand")
     private List<Model> models = new ArrayList<>();
 
     public static Brand of(String name) {
@@ -47,14 +47,14 @@ public class Brand {
         this.models = models;
     }
 
-    public void addModel(Model model) {
-        this.models.add(model);
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Brand brand = (Brand) o;
         return id == brand.id;
     }
@@ -62,5 +62,13 @@ public class Brand {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
