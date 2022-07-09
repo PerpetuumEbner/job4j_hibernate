@@ -44,11 +44,11 @@ public class Book {
             return false;
         }
         Book book = (Book) o;
-        return id == book.id && name.equals(book.name);
+        return id == book.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }
