@@ -22,11 +22,15 @@ public class Candidate {
 
     private int salary;
 
-    public static Candidate of(String name, String experience, int salary) {
+    @OneToOne(fetch = FetchType.LAZY)
+    private DbVacancy db;
+
+    public static Candidate of(String name, String experience, int salary, DbVacancy db) {
         Candidate candidate = new Candidate();
         candidate.name = name;
         candidate.experience = experience;
         candidate.salary = salary;
+        candidate.db = db;
         return candidate;
     }
 
@@ -62,15 +66,30 @@ public class Candidate {
         this.salary = salary;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Candidate: id=%s, name=%s, experience=%s, salary=%s", id, name, experience, salary);
+    public DbVacancy getDb() {
+        return db;
+    }
+
+    public void setDb(DbVacancy db) {
+        this.db = db;
     }
 
     @Override
+    public String toString() {
+        return String.format("Candidate: id=%s, name=%s, experience=%s, salary=%s, db=%s",
+                id, name, experience, salary, db);
+    }
+
+
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Candidate candidate = (Candidate) o;
         return id == candidate.id;
     }
